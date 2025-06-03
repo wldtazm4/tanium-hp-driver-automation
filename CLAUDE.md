@@ -32,10 +32,13 @@ The solution follows a **modular, configuration-driven design** with these core 
 ## Development Approach
 
 ### PowerShell Standards
-- **Version Support**: PowerShell 5.1+ (PowerShell 7+ recommended for JSON comments)
+- **Version Support**: PowerShell 7+ (preferred) or PowerShell 5.1 minimum
+- **Function Naming**: Use `Verb-Noun` format for all functions
+- **Comment-Based Help**: Include proper help documentation for all functions and scripts
+- **Parameter Handling**: Follow PowerShell best practices for parameters and pipeline support
 - **Module Structure**: Use .psm1/.psd1 files for reusable components
 - **Error Handling**: Comprehensive try-catch with detailed logging
-- **Security**: Digital signature verification for downloads, HTTPS enforcement
+- **Security**: Digital signature verification for downloads, HTTPS enforcement, proper access controls
 
 ### Key HP CMSL Commands
 The implementation will heavily use these HP CMSL cmdlets:
@@ -60,13 +63,17 @@ Endpoint execution pattern:
 
 ## Configuration Structure
 
-The central JSON config will define:
-```json
+Use **JSON5/JSONC format** with comments for better documentation. The central configuration will define:
+```jsonc
 {
+  // Base directory for all HP repositories
   "RepositoryBase": "D:\\HPRepos",
+  // Organize repositories by OS version
   "OrganizeByOS": true,
+  // Supported HP platforms configuration
   "Platforms": [
     {
+      // 4-character hex platform ID (validated)
       "PlatformID": "87EF",
       "Model": "HP EliteBook 840 G7", 
       "TargetOS": "win10",
@@ -78,13 +85,21 @@ The central JSON config will define:
 }
 ```
 
+### Repository Structure Requirements
+- Repository path format: `[RepositoryBase]\[OS]\[PlatformID]`
+- Platform IDs must be 4-character hex strings
+- Each HP platform gets isolated repository directory
+- Maintain clear separation between OS versions
+
 ## Logging Framework
 
 Implement a unified logging system with:
 - **Log Levels**: DEBUG, VERBOSE, INFO, SUCCESS, WARNING, ERROR
 - **Color-coded Console Output**: Green for success, red for errors, etc.
-- **File Logging**: All levels to rotating log files
+- **File Logging**: All levels to rotating log files with proper cleanup
 - **Timestamp Format**: `[2025-06-02 21:05:00] [INFO] Message`
+- **Operation Logging**: Log all significant operations and errors
+- **Performance Monitoring**: Track repository health and update success rates
 
 ## External Dependencies
 
@@ -95,11 +110,26 @@ Implement a unified logging system with:
 ## Implementation Priority
 
 1. **Logging Framework** - Create reusable Write-Log function with color and file output
-2. **Configuration Parser** - JSON loader with validation and comment support
-3. **CMSL Installer** - Version checking and silent installation
-4. **Repository Manager** - Platform-specific sync with filtering
-5. **Package Builder** - ZIP creation with HPIA and install scripts
-6. **Endpoint Script** - Universal installer using HPIA offline mode
+2. **Configuration Parser** - JSON5/JSONC loader with validation and comment support
+3. **CMSL Installer** - Version checking and silent installation with signature verification
+4. **Repository Manager** - Platform-specific sync with filtering and cleanup procedures
+5. **Package Builder** - ZIP creation with HPIA and install scripts following Tanium guidelines
+6. **Endpoint Script** - Universal installer using HPIA offline mode with proper error handling
+
+## Testing and Validation Requirements
+
+- **Dry-run Mode**: Support for testing without making actual changes
+- **Configuration Validation**: Validate all required fields and platform IDs
+- **Repository Integrity**: Check repository health after updates
+- **Deployment Testing**: Test package deployment in controlled environments
+- **Rollback Procedures**: Ensure all changes can be rolled back if needed
+
+## Documentation and Change Management
+
+- **Documentation Updates**: Keep all documentation in sync with code changes
+- **Commit Standards**: Use descriptive commit messages explaining purpose of changes
+- **Version Control**: Tag releases and maintain changelog for major updates
+- **Reference Materials**: Never modify files in "HP CMSL and HPIA Documentation" folder
 
 ## Reference Documentation
 

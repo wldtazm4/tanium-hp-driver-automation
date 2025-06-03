@@ -43,8 +43,19 @@
    - Configuration files must be well-commented
    - Maintain up-to-date README files
    - Document all changes in appropriate markdown files
+   - Update documentation whenever code changes are made
+   - Keep documentation in sync with code changes
+   - Never modify files in the "HP CMSL and HPIA Documentation" folder as these are reference materials
 
-2. **Logging Standards**
+2. **Documentation Update Process**
+   - Review and update documentation as part of every code change
+   - Update relevant README files when adding new features
+   - Document any changes to configuration requirements
+   - Update troubleshooting guides when fixing issues
+   - Keep changelog up to date with all significant changes
+   - Document any new dependencies or requirements
+
+3. **Logging Standards**
    - Implement consistent logging format
    - Include timestamps in all log entries
    - Log all significant operations and errors
@@ -110,4 +121,23 @@
    - Maintain troubleshooting documentation
    - Implement proper error reporting
    - Follow support escalation procedures
-   - Maintain contact information for critical issues 
+   - Maintain contact information for critical issues
+
+## Version Control and Change Management
+
+1. **Commit Requirements**
+   - Commit all major changes to version control
+   - Use descriptive commit messages that explain the purpose of changes
+   - Commit changes in logical, atomic units
+
+2. **Change Tracking**
+   - Document significant changes in commit messages
+   - Maintain a changelog for major updates
+   - Tag releases with version numbers
+   - Keep track of breaking changes
+
+3. **Rollback Procedures**
+   - Ensure all changes can be rolled back if needed
+   - Test rollback procedures before deployment
+   - Maintain backup of critical configurations
+   - Document rollback steps in commit messages
