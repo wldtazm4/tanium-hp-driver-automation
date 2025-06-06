@@ -24,7 +24,7 @@ This solution provides a comprehensive framework for:
 1. Clone this repository:
    ```powershell
    git clone [repository-url]
-   cd HP_Tanium_Driver_Solution
+   cd tanium-hp-driver-automation
    ```
 
 2. Create the required directory structure:
